@@ -1,0 +1,924 @@
+{
+	"info": {
+		"_postman_id": "794f8671-ab3b-4071-8cd2-fb535e3749f8",
+		"name": "Protogen Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32067678"
+	},
+	"item": [
+		{
+			"name": "Reservation service",
+			"item": [
+				{
+					"name": "getAllReservations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9103/reservations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9103",
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9103/reservations/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9103",
+							"path": [
+								"reservations",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCarById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9103/reservations/car/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9103",
+							"path": [
+								"reservations",
+								"car",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addReservation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9103/reservations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9103",
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getReservationById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9103/reservations/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9103",
+							"path": [
+								"reservations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeReservation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9103/reservations/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9103",
+							"path": [
+								"reservations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReservation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9103/reservations/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9103",
+							"path": [
+								"reservations",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchReservation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9103/reservations/searchReservations?pickUpLocation=London",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9103",
+							"path": [
+								"reservations",
+								"searchReservations"
+							],
+							"query": [
+								{
+									"key": "pickUpLocation",
+									"value": "London"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Service",
+			"item": [
+				{
+					"name": "getAllUsers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9101/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9101",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 3,\r\n        \"firstName\": \"Buhle\",\r\n        \"lastName\": \"Doe\",\r\n        \"dateOfBirth\": \"1990-01-01\",\r\n        \"rsaId\": \"1234567890123\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9101/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9101",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9101/users/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9101",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9101/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9101",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"firstName\": \"Buhle\",\r\n    \"lastName\": \"Doe\",\r\n    \"dateOfBirth\": \"1990-01-01\",\r\n    \"rsaId\": \"1234567890123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9101/users/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9101",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"firstName\": \"Buhle\",\r\n    \"lastName\": \"Doe\",\r\n    \"dateOfBirth\": \"1990-01-01\",\r\n    \"rsaId\": \"1234567890123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9101/users/searchUsers?firstName=jane&lastName=Doe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9101",
+							"path": [
+								"users",
+								"searchUsers"
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "jane"
+								},
+								{
+									"key": "lastName",
+									"value": "Doe"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Car Service",
+			"item": [
+				{
+					"name": "getAllCars",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculateAvarageMileage",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/averageMileage",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"averageMileage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addCar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"make\": \"Nissan\",\r\n    \"model\": \"NP200\",\r\n    \"year\": 2024,\r\n    \"color\": \"Blue\",\r\n    \"engine\": \"1.8L\",\r\n    \"transmission\": \"Automatic\",\r\n    \"fuelType\": \"Gasoline\",\r\n    \"mileage\": 10000,\r\n    \"vin\": \"CBA321\",\r\n    \"price\": 25000,\r\n    \"ownerId\": 123,\r\n    \"features\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeCar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/vin/ABC123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"vin",
+								"ABC123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCarById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/vin/XYZ789",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"vin",
+								"XYZ789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCarsByMake",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/make/Toyota",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"make",
+								"Toyota"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCarsByColor",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/color/red",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"color",
+								"red"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCarsByYear",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"make\": \"Honda\",\r\n        \"model\": \"Civic\",\r\n        \"year\": 2020,\r\n        \"color\": \"Red\",\r\n        \"engine\": \"1.5L\",\r\n        \"transmission\": \"CVT\",\r\n        \"fuelType\": \"Gasoline\",\r\n        \"mileage\": 15000,\r\n        \"vin\": \"XYZ789\",\r\n        \"price\": 22000,\r\n        \"ownerId\": 456,\r\n        \"features\": []\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/vin/CBA321",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"vin",
+								"CBA321"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findCheapestCar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/cheapestCar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"cheapestCar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findMostExpensiveCar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/mostExpensiveCar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"mostExpensiveCar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findNewestcar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/newestCar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"newestCar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchCars",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/searchCars?minimumPrice=25000&transmission=Automatic&maximumPrice=25000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"searchCars"
+							],
+							"query": [
+								{
+									"key": "minimumPrice",
+									"value": "25000"
+								},
+								{
+									"key": "transmission",
+									"value": "Automatic"
+								},
+								{
+									"key": "maximumPrice",
+									"value": "25000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findOldestCar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"userId\": 2,\r\n    \"carId\": 2,\r\n    \"fromDate\": \"2023-06-12\",\r\n    \"toDate\": \"2024-06-18\",\r\n    \"pickUpLocation\": \"Canada\",\r\n    \"dropoffLocation\": \"Paris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9102/cars/oldestCar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9102",
+							"path": [
+								"cars",
+								"oldestCar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
