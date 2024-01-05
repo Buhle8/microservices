@@ -2,8 +2,8 @@ package za.co.protogen.core.impl;
 
 import org.springframework.stereotype.Service;
 import za.co.protogen.core.UserService;
-import za.co.protogen.domain.User;
-import za.co.protogen.utility.Constant;
+import za.co.protogen.persistance.User;
+import za.co.protogen.persistance.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,26 +11,33 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService  {
 
+    private final UserRepository userRepository ;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void addUser(User user) {
-        Constant.users.add(user)  ;
+        userRepository.save(user)  ;
     }
 
     @Override
     public void removeUser(Long id) {
-        Constant.users.removeIf(user -> user.getId().equals(id));
-
+        if(!userRepository.existsById(id)) {
+            throw new IllegalStateException("User not found");
+        }
+        userRepository.deleteById(id);
     }
 
     @Override
     public User getUserById(Long id) {
-        return Constant.users.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return Constant.users;
+        return userRepository.findAll();
     }
 
     @Override
@@ -48,8 +55,9 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     public List<User> searchUsers(Long id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId) {
-        return Constant.users.stream().filter(user -> user.getId().equals(id)||user.getFirstName().equalsIgnoreCase(firstName)||
+        return getAllUsers().stream().filter(user -> user.getId().equals(id)||user.getFirstName().equalsIgnoreCase(firstName)||
                 user.getLastName().equalsIgnoreCase(lastName)|| user.getDateOfBirth().equals(dateOfBirth)||
                 user.getRsaId().equalsIgnoreCase(rsaId)).collect(Collectors.toList());
     }
+
 }

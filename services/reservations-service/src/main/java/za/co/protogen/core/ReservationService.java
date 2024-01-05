@@ -1,6 +1,6 @@
 package za.co.protogen.core;
 
-import za.co.protogen.domain.Reservation;
+import za.co.protogen.persistance.Reservation;
 
 import java.time.LocalDate;
 import java.util.List;

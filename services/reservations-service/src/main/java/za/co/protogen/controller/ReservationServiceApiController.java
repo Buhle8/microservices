@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import za.co.protogen.core.ReservationService;
-import za.co.protogen.domain.Reservation;
+import za.co.protogen.persistance.Reservation;
 import za.co.protogen.domain.restTemplate.Car;
 import za.co.protogen.domain.restTemplate.User;
 

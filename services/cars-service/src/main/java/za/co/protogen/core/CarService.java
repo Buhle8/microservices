@@ -1,7 +1,7 @@
 package za.co.protogen.core;
 
 import org.springframework.stereotype.Service;
-import za.co.protogen.domain.Car;
+import za.co.protogen.persistance.Car;
 
 import java.util.List;
 
