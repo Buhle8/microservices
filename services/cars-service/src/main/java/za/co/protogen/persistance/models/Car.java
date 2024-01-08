@@ -1,8 +1,17 @@
-package za.co.protogen.domain;
+package za.co.protogen.persistance.models;
+
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 
+@Entity
+@Table
+
 public class Car {
+
     private String make;
 
     private String model;
@@ -12,10 +21,29 @@ public class Car {
     private String transmission;
     private String fuelType;
     private Integer mileage;
+
+    @Id
     private String vin;
     private Integer price;
     private Integer ownerId;
     private ArrayList<String> features;
+    public Car(String make, String model, Integer year, String color, String engine, String transmission, String fuelType, Integer mileage, String vin, Integer price, Integer ownerId, ArrayList<String> features) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.color = color;
+        this.engine = engine;
+        this.transmission = transmission;
+        this.fuelType = fuelType;
+        this.mileage = mileage;
+        this.vin = vin;
+        this.price = price;
+        this.ownerId = ownerId;
+        this.features = features;
+    }
+
+    public Car() {
+    }
 
     public String getMake() {
         return make;
@@ -111,42 +139,5 @@ public class Car {
 
     public void setFeatures(ArrayList<String> features) {
         this.features = features;
-    }
-
-    public Car() {
-    }
-
-    @Override
-    public String toString() {
-        return "Car{" +
-                "make='" + make + '\'' +
-                ", model='" + model + '\'' +
-                ", year=" + year +
-                ", color='" + color + '\'' +
-                ", engine='" + engine + '\'' +
-                ", transmission='" + transmission + '\'' +
-                ", fuelType='" + fuelType + '\'' +
-                ", mileage=" + mileage +
-                ", vin='" + vin + '\'' +
-                ", price=" + price +
-                ", ownerId=" + ownerId +
-                ", features=" + features +
-                '}';
-    }
-
-    public Car(String make, String model, Integer year, String color, String engine, String transmission, String fuelType, Integer mileage, String vin, Integer price, Integer ownerId, ArrayList<String> features) {
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.color = color;
-        this.engine = engine;
-        this.transmission = transmission;
-        this.fuelType = fuelType;
-        this.mileage = mileage;
-        this.vin = vin;
-        this.price = price;
-        this.ownerId = ownerId;
-        this.features = features;
-
     }
 }

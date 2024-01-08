@@ -2,10 +2,10 @@ package za.co.protogen.core.impl;
 
 import org.springframework.stereotype.Service;
 import za.co.protogen.core.ReservationService;
-import za.co.protogen.persistance.Reservation;
+import za.co.protogen.persistance.models.Reservation;
 import za.co.protogen.persistance.repository.ReservationRepository;
 
-import java.time.LocalDate;
+import org.threeten.bp.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

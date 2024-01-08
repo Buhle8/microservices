@@ -2,7 +2,7 @@ package za.co.protogen.core.impl;
 
 import org.springframework.stereotype.Service;
 import za.co.protogen.core.UserService;
-import za.co.protogen.persistance.User;
+import za.co.protogen.persistance.models.User;
 import za.co.protogen.persistance.repository.UserRepository;
 
 import java.time.LocalDate;

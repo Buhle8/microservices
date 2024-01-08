@@ -1,0 +1,156 @@
+openapi: 3.0.0
+
+info:
+  title: OPEN API Documentation
+  version: 1.0.0Beta
+  description: API, implemented with OpenAPI Codegen
+
+paths:
+  /users:
+    post:
+      operationId: addUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '201':
+          description: User added successfully
+
+    get:
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Users returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+
+  /users/{id}:
+    get:
+      summary: Return a user by id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: Id of a User to be returned
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: User returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '404':
+          description: User not found
+
+
+    delete:
+      summary: Remove a user by id
+      operationId: removeUser
+      parameters:
+        - name: id
+          in: path
+          description: id of a user to be removed
+          required: true
+          schema:
+            type: number
+      responses:
+        '204':
+          description: User removed successfully
+        '404':
+          description: User not found
+
+    put:
+      summary: update a user identified by id
+      operationId: updateUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      parameters:
+        - name: id
+          in: path
+          description: id of a user to be updated
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: User updated successfully
+        '404':
+          description: User not found
+
+  /users/searchUsers:
+    get:
+      operationId: searchUsers
+      parameters:
+        - name: id
+          in: query
+          description: id of a user to be searched
+          required: false
+          schema:
+            type: number
+        - name: firstName
+          in: query
+          description: first name of a user to be searched
+          required: false
+          schema:
+            type: string
+        - name: lastName
+          in: query
+          description: last name of a user to be searched
+          required: false
+          schema:
+            type: string
+        - name: dateOfBirth
+          in: query
+          description: date  of birth of a user to be searched
+          required: false
+          schema:
+            type: date
+        - name: rsaId
+          in: query
+          description: rsa Id of a user to be searched
+          required: false
+          schema:
+            type: string
+            items:
+              string
+      responses:
+        '200':
+          description: Users returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+        '404':
+          description: User not found
+
+components:
+  schemas:
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: date
+        rsaId:
+          type: string

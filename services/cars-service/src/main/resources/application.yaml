@@ -1,0 +1,283 @@
+openapi: 3.0.0
+
+info:
+  title: OPEN API Documentation
+  version: 1.0.0Beta
+  description: API, implemented with OpenAPI Codegen
+
+paths:
+  /cars:
+    post:
+      operationId: addCar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarDto'
+      responses:
+        '201':
+          description: Car added successfully
+
+    get:
+      operationId: getAllCars
+      responses:
+        '200':
+          description: Cars returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarDto'
+
+  /cars/vin/{vin}:
+    get:
+      summary: Return a car by vin
+      operationId: getCarById
+      parameters:
+        - name: vin
+          in: path
+          description: vin of a car to be returned
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Car returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarDto'
+        '404':
+          description: Car not found
+
+
+    delete:
+      summary: Remove a car by vin
+      operationId: removeCarById
+      parameters:
+        - name: vin
+          in: path
+          description: vin of a car to be removed
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Car removed successfully
+        '404':
+          description: Car not found
+
+    put:
+      summary: update a car identified by vin
+      operationId: updateCar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarDto'
+      parameters:
+        - name: vin
+          in: path
+          description: vin of a car to be updated
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Car updated successfully
+        '404':
+          description: Car not found
+
+  /cars/make/{make}:
+    get:
+      summary: Return cars identified by make
+      operationId: getCarByMake
+      parameters:
+        - name: make
+          in: path
+          description: make of cars to be returned
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Car returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarDto'
+        '404':
+          description: Car not found
+
+  /cars/color/{color}:
+    get:
+      summary: Return cars by  color
+      operationId: getCarByColor
+      parameters:
+        - name: color
+          in: path
+          description: color of cars to returned
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cars returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarDto'
+        '404':
+          description: Car not found
+
+  /cars/year/{year}:
+    get:
+      summary: Return cars by year
+      operationId: getCarByYear
+      parameters:
+        - name: year
+          in: path
+          description: year of cars to returned
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Operation successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarDto'
+        '404':
+          description: Car not found
+
+  /cars/searchCars:
+    get:
+      operationId: searchCars
+      parameters:
+        - name: vin
+          in: query
+          description: vin of a car to be searched
+          required: false
+          schema:
+            type: string
+        - name: make
+          in: query
+          description: make of a car to be searched
+          required: false
+          schema:
+            type: string
+        - name: model
+          in: query
+          description: model of a car to be searched
+          required: false
+          schema:
+            type: string
+        - name: year
+          in: query
+          description: year of a car to be searched
+          required: false
+          schema:
+            type: integer
+        - name: color
+          in: query
+          description: color of a car to be searched
+          required: false
+          schema:
+            type: string
+        - name: engine
+          in: query
+          description: engine of a car to be searched
+          required: false
+          schema:
+            type: string
+        - name: transmission
+          in: query
+          description: transmission of a car to be searched
+          required: false
+          schema:
+            type: string
+        - name: fuelType
+          in: query
+          description: fuel type of a car to be searched
+          required: false
+          schema:
+            type: string
+        - name: mileage
+          in: query
+          description: mileage of a car to be searched
+          required: false
+          schema:
+            type: integer
+        - name: price
+          in: query
+          description: price of a car to be searched
+          required: false
+          schema:
+            type: integer
+        - name: ownerId
+          in: query
+          description: owner Id of a car to be searched
+          required: false
+          schema:
+            type: integer
+        - name: features
+          in: query
+          description: features of a car to be searched
+          required: false
+          schema:
+            type: array
+            items:
+              string
+      responses:
+        '200':
+          description: Cars returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarDto'
+        '404':
+          description: Car not found
+
+components:
+  schemas:
+    CarDto:
+      type: object
+      properties:
+        carId:
+          type: integer
+        vin:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        year:
+          type: integer
+        color:
+          type: string
+        engine:
+          type: integer
+        transmission:
+          type: string
+        fuelType:
+          type: string
+        mileage:
+          type: integer
+        price:
+          type: integer
+        ownerId:
+          type: integer
+        features:
+          type: array

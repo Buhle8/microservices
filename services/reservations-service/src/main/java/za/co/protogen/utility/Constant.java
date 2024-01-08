@@ -1,6 +1,6 @@
 package za.co.protogen.utility;
 
-import za.co.protogen.domain.Reservation;
+import za.co.protogen.domain.models.Reservation;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

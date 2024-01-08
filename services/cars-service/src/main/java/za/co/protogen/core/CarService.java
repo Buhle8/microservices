@@ -1,7 +1,7 @@
 package za.co.protogen.core;
 
 import org.springframework.stereotype.Service;
-import za.co.protogen.persistance.Car;
+import za.co.protogen.persistance.models.Car;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface  CarService {
     Car findMostExpensiveCar();
     Car findNewestCar();
     Car findOldestCar();
-    List<Car>searchCars(String make,String model, Integer year, String color,String engine,
-                        String transmission, String fuelType, Integer mileage, Integer ownerId,
-                        Integer minimumPrice, Integer maximumPrice);
+    List<Car>searchCars(String vin, String make, String model, Integer year,
+                        String color, String engine, String transmission, String fuelType,
+                        Integer mileage, Integer price, Integer ownerId, List features);
 }

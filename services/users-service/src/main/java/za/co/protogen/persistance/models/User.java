@@ -1,4 +1,4 @@
-package za.co.protogen.persistance;
+package za.co.protogen.persistance.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

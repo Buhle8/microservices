@@ -2,7 +2,7 @@ package za.co.protogen.controller;
 
 import org.springframework.web.bind.annotation.*;
 import za.co.protogen.core.UserService;
-import za.co.protogen.persistance.User;
+import za.co.protogen.persistance.models.User;
 
 import java.time.LocalDate;
 import java.util.List;

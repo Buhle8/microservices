@@ -1,4 +1,4 @@
-package za.co.protogen.domain;
+package za.co.protogen.domain.models;
 
 import java.time.LocalDate;
 

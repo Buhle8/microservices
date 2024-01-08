@@ -1,6 +1,6 @@
 package za.co.protogen.utility;
 
-import za.co.protogen.domain.User;
+import za.co.protogen.domain.models.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

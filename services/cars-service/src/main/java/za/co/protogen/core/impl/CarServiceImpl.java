@@ -1,17 +1,14 @@
 package za.co.protogen.core.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.co.protogen.core.CarService;
 
 
-import za.co.protogen.persistance.Car;
+import za.co.protogen.persistance.models.Car;
 import za.co.protogen.persistance.repository.CarRepository;
-import za.co.protogen.utility.Constant;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 @Service
 public class CarServiceImpl implements CarService {
@@ -107,13 +104,14 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> searchCars(String make, String model, Integer year, String color, String engine, String transmission,
-                                String fuelType, Integer mileage, Integer ownerId, Integer minimumPrice, Integer maximumPrice) {
+    public List<Car> searchCars(String vin, String make, String model, Integer year,
+                                String color, String engine, String transmission, String fuelType,
+                                Integer mileage, Integer price, Integer ownerId, List features) {
         return getAllCars().stream().filter(car -> car.getMake().equalsIgnoreCase(make) ||
                 car.getModel().equalsIgnoreCase(model) || car.getYear().equals(year) ||
                 car.getColor().equalsIgnoreCase(color) || car.getEngine().equalsIgnoreCase(engine) ||
                 car.getTransmission().equalsIgnoreCase(transmission) ||
                 car.getFuelType().equalsIgnoreCase(fuelType) || car.getMileage().equals(mileage) ||
-                car.getOwnerId().equals(ownerId) || car.getPrice() >= minimumPrice || car.getPrice() <= maximumPrice).collect(Collectors.toList());
+                car.getOwnerId().equals(ownerId) || car.getPrice() >= price || car.getPrice() <= price).collect(Collectors.toList());
     }
 }

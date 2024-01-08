@@ -1,100 +1,78 @@
 package za.co.protogen.controller;
 
-import jakarta.websocket.server.PathParam;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import za.co.protogen.adapter.CarMappers;
+import za.co.protogen.controller.api.CarsApi;
+import za.co.protogen.controller.models.CarDto;
 import za.co.protogen.core.CarService;
-import za.co.protogen.persistance.Car;
 
-import java.util.Comparator;
 import java.util.List;
+
 @RestController
 @RequestMapping("/cars")
-public class CarServiceApiController {
+public class CarServiceApiController implements CarsApi {
 
     private final CarService carService;
+    private final CarMappers carMapper;
 
-    public CarServiceApiController(CarService carService) {
+    public CarServiceApiController(CarService carService, CarMappers carMapper) {
         this.carService = carService;
+        this.carMapper = carMapper;
     }
 
-    @PostMapping
-    public void addCar(@RequestBody Car car) {
-        carService.addCar(car);
+    @Override
+    public ResponseEntity<Void> addCar(CarDto body) {
+        carService.addCar(carMapper.carDtoToCarEntity(body));
+        return null;
     }
 
-    @GetMapping
-    public List<Car> getAllCars() {
-        return carService.getAllCars();
+    @Override
+    public ResponseEntity<List<CarDto>> getAllCars() {
+        return ResponseEntity.ok(carMapper.carEntityToCarDto(carService.getAllCars()));
     }
 
-    @GetMapping("/vin/{vin}")
-    public Car getCarById(@PathVariable String vin) {
-        return carService.getCarById(vin);
+
+    @Override
+    public ResponseEntity<List<CarDto>> getCarByColor(String color) {
+        return ResponseEntity.ok(carMapper.carEntityToCarDto(carService.getCarsByColor(color)));
     }
 
-    @GetMapping("/make/{make}")
-    public List<Car> getCarsByMake(@PathVariable String make) {
-        return carService.getCarsByMake(make);
+    @Override
+    public ResponseEntity<CarDto> getCarById(String vin) {
+        return ResponseEntity.ok(carMapper.carEntityToCarDto(carService.getCarById(vin)));
     }
 
-    @GetMapping("/color/{color}")
-    public List<Car> getCarsByColor(@PathVariable String color) {
-        return carService.getCarsByColor(color);
+    @Override
+    public ResponseEntity<List<CarDto>> getCarByMake(String make) {
+        return ResponseEntity.ok(carMapper.carEntityToCarDto(carService.getCarsByMake(make)));
     }
 
-    @GetMapping("/year/{year}")
-    public List<Car> getCarsByYear(@PathVariable Integer year) {
-        return carService.getCarsByYear(year);
+    @Override
+    public ResponseEntity<List<CarDto>> getCarByYear(Integer year) {
+        return ResponseEntity.ok(carMapper.carEntityToCarDto(carService.getCarsByYear(year)));
     }
 
-    @DeleteMapping("/vin/{vin}")
-    public void removeCarById(@PathVariable String vin) {
+    @Override
+    public ResponseEntity<Void> removeCarById(String vin) {
         carService.removeCar(vin);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping("/vin/{vin}")
-    public void updateCar(@PathVariable String vin, @RequestBody Car car) {
-        carService.updateCar(vin, car );
+    @Override
+    public ResponseEntity<List<CarDto>> searchCars(String vin, String make, String model, Integer year,
+                                                   String color, String engine, String transmission, String fuelType,
+                                                   Integer mileage, Integer price, Integer ownerId, List features) {
+        return ResponseEntity.ok(carMapper.carEntityToCarDto(carService.searchCars(vin,make,model,year,color,engine,transmission,
+                fuelType,mileage,price,ownerId,features)));
     }
 
-    @GetMapping("/averageMileage")
-    public double getAverageMileage(){
-        return carService.calculateAverageMileage();
-    }
-    @GetMapping("/cheapestCar")
-    public Car getCheapestCar(){
-        return carService.findCheapestCar();
-    }
-
-    @GetMapping("/mostExpensiveCar")
-    public Car getMostExpensiveCar(){
-        return carService.findMostExpensiveCar();
-    }
-
-    @GetMapping("/newestCar")
-    public Car getNewestCar(){
-        return carService.findNewestCar();
-    }
-
-    @GetMapping("/oldestCar")
-    public Car getOldestCar(){
-        return carService.findOldestCar();
-    }
-    @GetMapping("/searchCars")
-    public List<Car> searchCars(
-            @RequestParam(name = "make", required = false) String make,
-            @RequestParam(name = "model", required = false) String model,
-            @RequestParam(name = "year", required = false) Integer year,
-            @RequestParam(name = "color", required = false) String color,
-            @RequestParam(name = "engine", required = false) String engine,
-            @RequestParam(name = "transmission", required = false) String transmission,
-            @RequestParam(name = "fuelType", required = false) String fuelType,
-            @RequestParam(name = "mileage", required = false) Integer mileage,
-            @RequestParam(name = "ownerId", required = false) Integer ownerId,
-            @RequestParam(name = "minimumPrice", required = false) Integer minimumPrice,
-            @RequestParam(name = "maximumPrice", required = false) Integer maximumPrice
-            ){
-        return carService.searchCars(make,model,year,color,engine,transmission,fuelType,mileage,ownerId,minimumPrice,maximumPrice);
+    @Override
+    public ResponseEntity<Void> updateCar(String vin, CarDto body) {
+        carService.updateCar(vin, carMapper.carDtoToCarEntity(body));
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
 
