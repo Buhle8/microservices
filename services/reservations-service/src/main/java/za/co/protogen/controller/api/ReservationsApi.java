@@ -5,6 +5,8 @@
  */
 package za.co.protogen.controller.api;
 
+import za.co.protogen.controller.models.CarDto;
+import za.co.protogen.controller.models.UserDto;
 import za.co.protogen.controller.models.ReservationDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -45,15 +47,37 @@ public interface ReservationsApi {
     ResponseEntity<List<ReservationDto>> getAllReservations();
 
 
+    @Operation(summary = "Return a car by id", description = "", tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Car returned successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarDto.class))),
+
+            @ApiResponse(responseCode = "404", description = "Car not found") })
+    @RequestMapping(value = "/reservations/car/{carId}",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<CarDto> getCarById(@Parameter(in = ParameterIn.PATH, description = "id of a car to be returned", required=true, schema=@Schema()) @PathVariable("carId") BigDecimal carId);
+
+
     @Operation(summary = "Return a reservation by id", description = "", tags={  })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Reservation returned successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReservationDto.class))),
-        
-        @ApiResponse(responseCode = "404", description = "Reservation not found") })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Reservation returned successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.example.reservationsService.models.ReservationDto.class))),
+
+            @ApiResponse(responseCode = "404", description = "Reservation not found") })
     @RequestMapping(value = "/reservations/{id}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+            produces = { "application/json" },
+            method = RequestMethod.GET)
     ResponseEntity<ReservationDto> getReservationById(@Parameter(in = ParameterIn.PATH, description = "id of a reservation to be returned", required=true, schema=@Schema()) @PathVariable("id") BigDecimal id);
+
+
+    @Operation(summary = "Return a user by id", description = "", tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User returned successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
+
+            @ApiResponse(responseCode = "404", description = "User not found") })
+    @RequestMapping(value = "/reservations/user/{userId}",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<UserDto> getUserById(@Parameter(in = ParameterIn.PATH, description = "id of a user to be returned", required=true, schema=@Schema()) @PathVariable("userId") BigDecimal userId);
 
 
     @Operation(summary = "Remove a Reservation by id", description = "", tags={  })

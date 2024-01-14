@@ -13,10 +13,10 @@ import java.util.Objects;
  * UserDto
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2024-01-07T19:36:07.383630200Z[Europe/London]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2024-01-13T19:28:47.502537500Z[Europe/London]")
 
 
-public class UserDto {
+public class UserDto   {
   @JsonProperty("id")
   private BigDecimal id = null;
 
@@ -27,7 +27,7 @@ public class UserDto {
   private String lastName = null;
 
   @JsonProperty("dateOfBirth")
-  private String dateOfBirth = null;
+  private LocalDate dateOfBirth = null;
 
   @JsonProperty("rsaId")
   private String rsaId = null;
@@ -90,7 +90,7 @@ public class UserDto {
     this.lastName = lastName;
   }
 
-  public UserDto dateOfBirth(String dateOfBirth) {
+  public UserDto dateOfBirth(LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
@@ -102,11 +102,11 @@ public class UserDto {
   @Schema(description = "")
   
     @Valid
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }
 
-  public void setDateOfBirth(String dateOfBirth) {
+  public void setDateOfBirth(LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
 

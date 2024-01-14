@@ -1,59 +1,72 @@
 package za.co.protogen.controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import za.co.protogen.adapter.Mappers;
+import za.co.protogen.controller.api.UsersApi;
+import za.co.protogen.controller.models.UserDto;
 import za.co.protogen.core.UserService;
 import za.co.protogen.persistance.models.User;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/users")
-public class UsersServiceApiController {
+@RequestMapping
+public class UsersServiceApiController implements UsersApi {
     private final UserService userService;
-
-
-    public UsersServiceApiController(UserService userService) {
+    private final Mappers userMappers;
+    private static final Logger logger = LoggerFactory.getLogger(UsersServiceApiController.class);
+    public UsersServiceApiController(UserService userService, Mappers userMappers) {
         this.userService = userService;
+        this.userMappers = userMappers;
     }
 
 
-    @PostMapping
-    public void addUser(@RequestBody User user) {
-        userService.addUser(user);
+    @Override
+    public ResponseEntity<Void> addUser(UserDto body) {
+        userService.addUser(userMappers.userDtoToUserEntity(body));
+        logger.info("adding user");
+        return null;
     }
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @Override
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        logger.info("getting all users");
+        return ResponseEntity.ok(userMappers.userEntityToUserDto(userService.getAllUsers()));
     }
 
-    @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
-
+    @Override
+    public ResponseEntity<UserDto> getUserById(BigDecimal id) {
+        logger.info("getting user by id " + id);
+        return ResponseEntity.ok(userMappers.userEntityToUserDto(userService.getUserById(id.longValue())));
     }
 
-    @DeleteMapping("/{id}")
-    public void removeUserById(@PathVariable Long id) {
-        userService.removeUser(id);
-
+    @Override
+    public ResponseEntity<Void> removeUser(BigDecimal id) {
+        userService.removeUser(id.longValue());
+        logger.info("removing user by id" + id);
+        return null;
     }
 
-    @PutMapping("/{id}")
-    public void updateUser(@PathVariable Long id, @RequestBody User user) {
-        userService.updateUser(id, user);
+    @Override
+    public ResponseEntity<List<UserDto>> searchUsers(BigDecimal id, String firstName, String lastName, org.threeten.bp.LocalDate dateOfBirth, String rsaId) {
+        logger.info("searching all users");
+        return ResponseEntity.ok(userMappers.userEntityToUserDto(userService.searchUsers(id.longValue(),firstName,lastName,dateOfBirth,rsaId)));
     }
 
-    @GetMapping("/searchUsers")
-    public List<User> searchUsers(
-            @RequestParam(name = "id", required = false) Long id,
-            @RequestParam(name = "firstName", required = false) String firstName,
-            @RequestParam(name = "lastName", required = false) String lastName,
-            @RequestParam(name = "dateOfBirth", required = false) LocalDate dateOfBirth,
-            @RequestParam(name = "rsaId", required = false) String rsaId
-    ) {
-        return userService.searchUsers(id, firstName, lastName, dateOfBirth, rsaId);
+    @Override
+    public ResponseEntity<Void> updateUser(BigDecimal id, UserDto body) {
+        userService.updateUser(id.longValue(),userMappers.userDtoToUserEntity(body));
+        logger.info("updating user");
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
 

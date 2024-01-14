@@ -154,3 +154,33 @@ components:
           type: date
         rsaId:
           type: string
+
+    CarDto:
+      type: object
+      properties:
+        carId:
+          type: integer
+        vin:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        year:
+          type: integer
+        color:
+          type: string
+        engine:
+          type: integer
+        transmission:
+          type: string
+        fuelType:
+          type: string
+        mileage:
+          type: integer
+        price:
+          type: integer
+        ownerId:
+          type: integer
+        features:
+          type: array

@@ -150,6 +150,48 @@ paths:
         '404':
           description: Reservation not found
 
+  /reservations/user/{userId}:
+    get:
+      summary: Return a user by id
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          description: id of a user to be returned
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: User returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '404':
+          description: User not found
+
+  /reservations/car/{carId}:
+    get:
+      summary: Return a car by id
+      operationId: getCarById
+      parameters:
+        - name: carId
+          in: path
+          description: id of a car to be returned
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Car returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarDto'
+        '404':
+          description: Car not found
+
 components:
   schemas:
     ReservationDto:
@@ -169,3 +211,47 @@ components:
           type: string
         dropOffLocation:
           type: string
+
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: date
+        rsaId:
+          type: string
+
+    CarDto:
+      type: object
+      properties:
+        carId:
+          type: integer
+        vin:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        year:
+          type: integer
+        color:
+          type: string
+        engine:
+          type: integer
+        transmission:
+          type: string
+        fuelType:
+          type: string
+        mileage:
+          type: integer
+        price:
+          type: integer
+        ownerId:
+          type: integer
+        features:
+          type: array

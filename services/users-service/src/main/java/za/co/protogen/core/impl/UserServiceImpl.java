@@ -5,7 +5,7 @@ import za.co.protogen.core.UserService;
 import za.co.protogen.persistance.models.User;
 import za.co.protogen.persistance.repository.UserRepository;
 
-import java.time.LocalDate;
+import org.threeten.bp.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service

@@ -2,7 +2,7 @@ package za.co.protogen.core;
 
 import za.co.protogen.persistance.models.User;
 
-import java.time.LocalDate;
+import org.threeten.bp.LocalDate;
 import java.util.List;
 
 public interface UserService {

@@ -5,7 +5,7 @@
  */
 package za.co.protogen.controller.api;
 
-import com.example.usersService.models.UserDto;
+import za.co.protogen.controller.models.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
