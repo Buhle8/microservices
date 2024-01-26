@@ -22,5 +22,5 @@ public interface  CarService {
     Car findOldestCar();
     List<Car>searchCars(String vin, String make, String model, Integer year,
                         String color, String engine, String transmission, String fuelType,
-                        Integer mileage, Integer price, Integer ownerId, List features);
+                        Integer mileage, Integer price, Integer ownerId, List<String> features);
 }

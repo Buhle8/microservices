@@ -1,19 +1,18 @@
 package za.co.protogen.core.impl;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import za.co.protogen.core.CarService;
-
-
 import za.co.protogen.persistance.models.Car;
 import za.co.protogen.persistance.repository.CarRepository;
+import za.co.protogen.specification.CarSpecifications;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 @Service
 public class CarServiceImpl implements CarService {
 
-    private final CarRepository carRepository;
+  private final CarRepository carRepository;
 
     public CarServiceImpl(CarRepository carRepository) {
         this.carRepository = carRepository;
@@ -27,15 +26,15 @@ public class CarServiceImpl implements CarService {
     @Override
     public void removeCar(String vin) {
 
-        if (!carRepository.existsById(vin)){
+        if (!carRepository.existsById(Long.valueOf(vin))){
            throw new IllegalStateException("car not found!!");
         }
-        carRepository.deleteById(vin);
+        carRepository.deleteById(Long.valueOf(vin));
     }
 
     @Override
     public Car getCarById(String vin) {
-        return carRepository.findById(vin).orElse(null);
+        return carRepository.findById(Long.valueOf(vin)).orElse(null);
     }
 
     @Override
@@ -103,15 +102,23 @@ public class CarServiceImpl implements CarService {
         return carRepository.findAll().stream().min(Comparator.comparingInt(Car::getYear)).orElse(null);
     }
 
-    @Override
+@Override
     public List<Car> searchCars(String vin, String make, String model, Integer year,
                                 String color, String engine, String transmission, String fuelType,
-                                Integer mileage, Integer price, Integer ownerId, List features) {
-        return getAllCars().stream().filter(car -> car.getMake().equalsIgnoreCase(make) ||
-                car.getModel().equalsIgnoreCase(model) || car.getYear().equals(year) ||
-                car.getColor().equalsIgnoreCase(color) || car.getEngine().equalsIgnoreCase(engine) ||
-                car.getTransmission().equalsIgnoreCase(transmission) ||
-                car.getFuelType().equalsIgnoreCase(fuelType) || car.getMileage().equals(mileage) ||
-                car.getOwnerId().equals(ownerId) || car.getPrice() >= price || car.getPrice() <= price).collect(Collectors.toList());
+                                Integer mileage, Integer price, Integer ownerId, List<String> features) {
+        Specification<Car> spec = Specification.where(CarSpecifications.vinEquals(vin))
+                .or(CarSpecifications.makeEquals(make))
+                .or(CarSpecifications.modelEquals(model))
+                .or(CarSpecifications.yearEquals(year))
+                .or(CarSpecifications.colorEquals(color))
+                .or(CarSpecifications.engineEquals(engine))
+                .or(CarSpecifications.transmissionEquals(transmission))
+                .or(CarSpecifications.fuelTypeEquals(fuelType))
+                .or(CarSpecifications.mileageEquals(mileage))
+                .or(CarSpecifications.priceEquals(price))
+                .or(CarSpecifications.ownerIdEquals(ownerId))
+                .or(CarSpecifications.featuresContains(features));
+        return carRepository.findAll(spec);
     }
+
 }

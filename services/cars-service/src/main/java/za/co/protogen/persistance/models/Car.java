@@ -1,32 +1,45 @@
 package za.co.protogen.persistance.models;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name = "cars")
+
 
 public class Car {
 
+    @Column(name = "make")
     private String make;
-
+    @Column(name = "model")
     private String model;
+    @Column(name = "year")
     private Integer year;
+    @Column(name = "color")
     private String color;
+    @Column(name = "engine")
     private String engine;
+    @Column(name = "transmission")
     private String transmission;
+
+    @Column(name = "fuelType")
     private String fuelType;
+
+    @Column(name = "mileage")
     private Integer mileage;
 
     @Id
+    @Column(name = "vin")
     private String vin;
+    @Column(name = "price")
     private Integer price;
+    @Column(name = "ownerId")
     private Integer ownerId;
-    private ArrayList<String> features;
+    @ElementCollection
+    @Column(name = "features")
+    private List<String> features;
     public Car(String make, String model, Integer year, String color, String engine, String transmission, String fuelType, Integer mileage, String vin, Integer price, Integer ownerId, ArrayList<String> features) {
         this.make = make;
         this.model = model;
@@ -133,11 +146,11 @@ public class Car {
         this.ownerId = ownerId;
     }
 
-    public ArrayList<String> getFeatures() {
+    public List<String> getFeatures() {
         return features;
     }
 
-    public void setFeatures(ArrayList<String> features) {
+    public void setFeatures(List<String> features) {
         this.features = features;
     }
 }

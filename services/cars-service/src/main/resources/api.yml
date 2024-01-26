@@ -237,7 +237,7 @@ paths:
           schema:
             type: array
             items:
-              string
+              type: string
       responses:
         '200':
           description: Cars returned successfully
@@ -268,7 +268,7 @@ components:
         color:
           type: string
         engine:
-          type: integer
+          type: string
         transmission:
           type: string
         fuelType:
@@ -281,3 +281,5 @@ components:
           type: integer
         features:
           type: array
+          items:
+            type : string

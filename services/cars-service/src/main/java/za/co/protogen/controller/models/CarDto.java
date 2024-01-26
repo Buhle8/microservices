@@ -17,9 +17,6 @@ import java.util.Objects;
 
 
 public class CarDto {
-  @JsonProperty("carId")
-  private BigDecimal carId = null;
-
   @JsonProperty("vin")
   private String vin = null;
 
@@ -36,7 +33,7 @@ public class CarDto {
   private String color = null;
 
   @JsonProperty("engine")
-  private BigDecimal engine = null;
+  private String engine = null;
 
   @JsonProperty("transmission")
   private String transmission = null;
@@ -54,27 +51,7 @@ public class CarDto {
   private BigDecimal ownerId = null;
 
   @JsonProperty("features")
-  private List features = null;
-
-  public CarDto carId(BigDecimal carId) {
-    this.carId = carId;
-    return this;
-  }
-
-  /**
-   * Get carId
-   * @return carId
-   **/
-  @Schema(description = "")
-  
-    @Valid
-    public BigDecimal getCarId() {
-    return carId;
-  }
-
-  public void setCarId(BigDecimal carId) {
-    this.carId = carId;
-  }
+  private List<String> features = null;
 
   public CarDto vin(String vin) {
     this.vin = vin;
@@ -172,7 +149,7 @@ public class CarDto {
     this.color = color;
   }
 
-  public CarDto engine(BigDecimal engine) {
+  public CarDto engine(String engine) {
     this.engine = engine;
     return this;
   }
@@ -184,11 +161,11 @@ public class CarDto {
   @Schema(description = "")
   
     @Valid
-    public BigDecimal getEngine() {
+    public String getEngine() {
     return engine;
   }
 
-  public void setEngine(BigDecimal engine) {
+  public void setEngine(String engine) {
     this.engine = engine;
   }
 
@@ -290,7 +267,7 @@ public class CarDto {
     this.ownerId = ownerId;
   }
 
-  public CarDto features(List features) {
+  public CarDto features(List<String> features) {
     this.features = features;
     return this;
   }
@@ -302,11 +279,11 @@ public class CarDto {
   @Schema(description = "")
   
     @Valid
-    public List getFeatures() {
+    public List<String> getFeatures() {
     return features;
   }
 
-  public void setFeatures(List features) {
+  public void setFeatures(List<String> features) {
     this.features = features;
   }
 
@@ -320,8 +297,7 @@ public class CarDto {
       return false;
     }
     CarDto carDto = (CarDto) o;
-    return Objects.equals(this.carId, carDto.carId) &&
-        Objects.equals(this.vin, carDto.vin) &&
+    return Objects.equals(this.vin, carDto.vin) &&
         Objects.equals(this.make, carDto.make) &&
         Objects.equals(this.model, carDto.model) &&
         Objects.equals(this.year, carDto.year) &&
@@ -337,15 +313,14 @@ public class CarDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(carId, vin, make, model, year, color, engine, transmission, fuelType, mileage, price, ownerId, features);
+    return Objects.hash( vin, make, model, year, color, engine, transmission, fuelType, mileage, price, ownerId, features);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CarDto {\n");
-    
-    sb.append("    carId: ").append(toIndentedString(carId)).append("\n");
+
     sb.append("    vin: ").append(toIndentedString(vin)).append("\n");
     sb.append("    make: ").append(toIndentedString(make)).append("\n");
     sb.append("    model: ").append(toIndentedString(model)).append("\n");

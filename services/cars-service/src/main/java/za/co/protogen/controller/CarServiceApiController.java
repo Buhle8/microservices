@@ -11,6 +11,7 @@ import za.co.protogen.controller.api.CarsApi;
 import za.co.protogen.controller.models.CarDto;
 import za.co.protogen.core.CarService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -30,19 +31,20 @@ public class CarServiceApiController implements CarsApi {
     public ResponseEntity<Void> addCar(CarDto body) {
         carService.addCar(carMapper.carDtoToCarEntity(body));
         logger.info("adding car");
-        return null;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<CarDto>> getAllCars() {
         logger.info("getting all cars");
-        return null;
+        List<CarDto> carDtos = carMapper.carEntityToCarDto(carService.getAllCars());
+        return ResponseEntity.ok(carDtos);
     }
 
 
     @Override
     public ResponseEntity<List<CarDto>> getCarByColor(String color) {
-        logger.info("getting cars by color "+ color);
+        logger.info("getting cars by color " + color);
         return ResponseEntity.ok(carMapper.carEntityToCarDto(carService.getCarsByColor(color)));
     }
 
@@ -54,7 +56,7 @@ public class CarServiceApiController implements CarsApi {
 
     @Override
     public ResponseEntity<List<CarDto>> getCarByMake(String make) {
-        logger.info("getting cars by make " + make );
+        logger.info("getting cars by make " + make);
         return ResponseEntity.ok(carMapper.carEntityToCarDto(carService.getCarsByMake(make)));
     }
 
@@ -72,19 +74,18 @@ public class CarServiceApiController implements CarsApi {
     }
 
     @Override
-    public ResponseEntity<List<CarDto>> searchCars(String vin, String make, String model, Integer year,
-                                                   String color, String engine, String transmission, String fuelType,
-                                                   Integer mileage, Integer price, Integer ownerId, List features) {
-      logger.info("searching cars");
-        return ResponseEntity.ok(carMapper.carEntityToCarDto(carService.searchCars(vin,make,model,year,color,engine,transmission,
-                fuelType,mileage,price,ownerId,features)));
-    }
-
-    @Override
     public ResponseEntity<Void> updateCar(String vin, CarDto body) {
         carService.updateCar(vin, carMapper.carDtoToCarEntity(body));
         logger.info("updating cars");
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+   @Override
+    public ResponseEntity<List<CarDto>> searchCars(String vin, String make, String model, Integer year, String color,
+                                String engine, String transmission, String fuelType, Integer mileage,
+                                Integer price, Integer ownerId, List<String> feature) {
+        List<CarDto> carDtos = carMapper.carEntityToCarDto(carService.searchCars(vin, make, model, year, color, engine, transmission, fuelType,
+                mileage, price, ownerId ,feature));
+        return ResponseEntity.ok(carDtos) ;
     }
 }
 
