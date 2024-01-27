@@ -1,11 +1,14 @@
 package za.co.protogen.core.impl;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import za.co.protogen.core.ReservationService;
 import za.co.protogen.persistance.models.Reservation;
 import za.co.protogen.persistance.repository.ReservationRepository;
 
 import org.threeten.bp.LocalDate;
+import za.co.protogen.specification.ReservationSpecifications;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-    private final ReservationRepository reservationRepository ;
+    private final ReservationRepository reservationRepository;
 
     public ReservationServiceImpl(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
@@ -26,8 +29,8 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public void removeReservation(Long id){
-        if(!reservationRepository.existsById(id)) {
+    public void removeReservation(Long id) {
+        if (!reservationRepository.existsById(id)) {
             throw new IllegalStateException("Reservation not found");
         }
         reservationRepository.deleteById(id);
@@ -52,15 +55,21 @@ public class ReservationServiceImpl implements ReservationService {
             existingReservation.setFromDate(updatedReservation.getFromDate());
             existingReservation.setToDate((updatedReservation.getToDate()));
             existingReservation.setPickUpLocation(updatedReservation.getPickUpLocation());
-            existingReservation.setDropoffLocation(updatedReservation.getDropoffLocation());
+            existingReservation.setDropOffLocation(updatedReservation.getDropOffLocation());
 
         }
     }
-
     @Override
-    public List<Reservation> searchReservations(Long id, Long userId, Long carId, LocalDate fromDate, LocalDate toDate, String pickUpLocation, String dropOffLocation) {
-        return getAllReservations().stream().filter(reservation -> reservation.getId().equals(id) || reservation.getCarId().equals(carId) ||
-                reservation.getUserId().equals(userId) || reservation.getFromDate().equals(fromDate) || reservation.getToDate().equals(toDate) ||
-                reservation.getPickUpLocation().equalsIgnoreCase(pickUpLocation) || reservation.getDropoffLocation().equalsIgnoreCase(dropOffLocation)).collect(Collectors.toList());
+    public List<Reservation> searchReservations(Long id, Long userId,Long carId, LocalDate
+            fromDate, LocalDate toDate,  String pickUpLocation, String dropOffLocation) {
+        Specification<Reservation> spec = Specification.where(ReservationSpecifications.idEquals(id))
+                .or(ReservationSpecifications.userIdEquals(userId))
+                .or(ReservationSpecifications.dateFrom(fromDate))
+                .or(ReservationSpecifications.dateTo(toDate))
+                .or(ReservationSpecifications.carIdEquals(carId))
+                .or(ReservationSpecifications.pickUpLocationEquals(pickUpLocation))
+                .or(ReservationSpecifications.dropOffLocationEquals(dropOffLocation));
+
+        return reservationRepository.findAll(spec);
     }
 }

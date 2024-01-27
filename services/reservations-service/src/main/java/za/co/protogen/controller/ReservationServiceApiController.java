@@ -1,17 +1,19 @@
 package za.co.protogen.controller;
 
-import za.co.protogen.controller.models.CarDto;
-import za.co.protogen.controller.models.UserDto;
+import com.example.reservationsService.api.ReservationsApi;
+import com.example.reservationsService.models.CarDto;
+import com.example.reservationsService.models.ReservationDto;
+import com.example.reservationsService.models.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.threeten.bp.LocalDate;
 import za.co.protogen.adapter.ReservationMappers;
-import za.co.protogen.controller.api.ReservationsApi;
-import za.co.protogen.controller.models.ReservationDto;
 import za.co.protogen.core.ReservationService;
 
 import java.math.BigDecimal;
@@ -21,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping
 public class ReservationServiceApiController implements ReservationsApi {
+
     private static final Logger logger = LoggerFactory.getLogger(ReservationServiceApiController.class);
     private final ReservationService reservationService;
     private final ReservationMappers reservationMapper;
@@ -37,13 +40,14 @@ public class ReservationServiceApiController implements ReservationsApi {
     public ResponseEntity<Void> addReservation(ReservationDto body) {
         reservationService.addReservation(reservationMapper.reservationDtoToReservationEntity(body));
         logger.info("adding reservations");
-        return null;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ReservationDto>> getAllReservations() {
         logger.info("getting all reservations");
-        return ResponseEntity.ok(reservationMapper.reservationEntityToReservationDto(reservationService.getAllReservations()));
+        List<ReservationDto> reservationDtos = reservationMapper.reservationEntityToReservationDto(reservationService.getAllReservations());
+        return ResponseEntity.ok(reservationDtos);
     }
 
     @Override
@@ -66,16 +70,23 @@ public class ReservationServiceApiController implements ReservationsApi {
     public ResponseEntity<Void> removeReservation(BigDecimal id) {
         reservationService.removeReservation(id.longValue());
         logger.info("removing reservation by id " + id);
-        return null;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ReservationDto>> searchReservations(BigDecimal id, BigDecimal userId, BigDecimal carId,
-                                                                   org.threeten.bp.LocalDate fromDate, org.threeten.bp.LocalDate toDate,
-                                                                   String pickUpLocation, String dropoffLocation) {
+                                                                   LocalDate fromDate, LocalDate toDate,
+                                                                   String pickUpLocation, String dropOffLocation) {
         logger.info("searching reservations");
-        return ResponseEntity.ok(reservationMapper.reservationEntityToReservationDto(reservationService.searchReservations(id.longValue(), userId.longValue(),
-                carId.longValue(), fromDate, toDate, pickUpLocation, dropoffLocation)));
+
+        Long idValue = (id != null) ? id.longValue() : null;
+        Long userIdValue = (userId != null) ? userId.longValue() : null;
+        Long carIdValue = (carId != null) ? carId.longValue() : null;
+
+        List<ReservationDto> reservationDtos = reservationMapper.reservationEntityToReservationDto(
+                reservationService.searchReservations(idValue, userIdValue, carIdValue, fromDate, toDate, pickUpLocation, dropOffLocation));
+
+        return ResponseEntity.ok(reservationDtos);
     }
 
     @Override

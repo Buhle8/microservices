@@ -1,31 +1,41 @@
 package za.co.protogen.persistance.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import org.threeten.bp.LocalDate;
 
-@Entity
-@Table
-public class Reservation {
-    @Id
-    private Long id;
-    private Long userId;
-    private Long carId;
-    private LocalDate fromDate;
-    private LocalDate toDate;
-    private String pickUpLocation ;
-    private String dropoffLocation;
 
-    public Reservation(Long id, Long userId, Long carId, LocalDate fromDate, LocalDate toDate, String pickUpLocation, String dropoffLocation) {
+@Entity
+@Table(name = "reservations")
+public class Reservation {
+
+    @Id
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "userId")
+    private Long userId;
+    @Column(name = "carId")
+    private Long carId;
+    @Column(name = "fromDate")
+    private LocalDate fromDate;
+    @Column(name = "toDate")
+    private LocalDate toDate;
+    @Column(name = "pickUpLocation")
+    private String pickUpLocation ;
+    @Column(name = "dropOffLocation")
+    private String dropOffLocation;
+
+    public Reservation(Long id, Long userId, Long carId, LocalDate fromDate, LocalDate toDate, String pickUpLocation, String dropOffLocation) {
         this.id = id;
         this.userId = userId;
         this.carId = carId;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.pickUpLocation = pickUpLocation;
-        this.dropoffLocation = dropoffLocation;
+        this.dropOffLocation = dropOffLocation;
     }
 
     public Reservation() {
@@ -79,11 +89,17 @@ public class Reservation {
         this.pickUpLocation = pickUpLocation;
     }
 
-    public String getDropoffLocation() {
-        return dropoffLocation;
+    public String getDropOffLocation() {
+        return dropOffLocation;
     }
 
-    public void setDropoffLocation(String dropoffLocation) {
-        this.dropoffLocation = dropoffLocation;
+    public void setDropOffLocation(String dropOffLocation) {
+        this.dropOffLocation = dropOffLocation;
+    }
+
+    public void setToDate(java.time.LocalDate of) {
+    }
+
+    public void setFromDate(java.time.LocalDate of) {
     }
 }
