@@ -1,10 +1,11 @@
 package za.co.protogen.utility;
 
-import za.co.protogen.domain.models.Reservation;
+import za.co.protogen.persistance.models.Reservation;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class Constant {
     public static List<Reservation> reservations = new ArrayList<>();
@@ -18,7 +19,7 @@ public class Constant {
         reservation1.setFromDate(LocalDate.of(2023, 6, 10));
         reservation1.setToDate(LocalDate.of(2023, 6, 15));
         reservation1.setPickUpLocation("New York");
-        reservation1.setDropoffLocation("Los Angeles");
+        reservation1.setDropOffLocation("Los Angeles");
         reservations.add(reservation1);
         Reservation reservation2 = new Reservation();
         reservation2.setId(2L);
@@ -27,7 +28,7 @@ public class Constant {
         reservation2.setFromDate(LocalDate.of(2023, 6, 12));
         reservation2.setToDate(LocalDate.of(2023, 6, 18));
         reservation2.setPickUpLocation("London");
-        reservation2.setDropoffLocation("Paris");
+        reservation2.setDropOffLocation("Paris");
         reservations.add(reservation2);
         // Add more reservations as needed
     }

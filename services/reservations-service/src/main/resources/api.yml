@@ -119,13 +119,19 @@ paths:
           description: from date of a reservation to be searched
           required: false
           schema:
-            type: date
+            type: string
+            format: date
+            description: Reservation to from date
+            example: "2024-01-26"
         - name: toDate
           in: query
           description: to date of a reservation to be searched
           required: false
           schema:
-            type: date
+            type: string
+            format: date
+            description: Reservation to Date
+            example: "2024-01-26"
         - name: pickUpLocation
           in: query
           description: pick up location of a reservation to be searched
@@ -204,9 +210,15 @@ components:
         carId:
           type: number
         fromDate:
-          type: date
+          type: string
+          format: date
+          description: Reservation from date
+          example: "2024-01-26"
         toDate:
-          type: date
+          type: string
+          format: date
+          description: Reservation to date
+          example: "2024-01-26"
         pickUpLocation:
           type: string
         dropOffLocation:
@@ -222,7 +234,10 @@ components:
         lastName:
           type: string
         dateOfBirth:
-          type: date
+          type: string
+          format: date
+          description: User Date of Birth
+          example: "2024-01-26"
         rsaId:
           type: string
 
