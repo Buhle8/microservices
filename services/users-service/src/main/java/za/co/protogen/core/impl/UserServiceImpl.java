@@ -1,17 +1,21 @@
 package za.co.protogen.core.impl;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import za.co.protogen.core.UserService;
 import za.co.protogen.persistance.models.User;
 import za.co.protogen.persistance.repository.UserRepository;
 
 import org.threeten.bp.LocalDate;
+import za.co.protogen.specification.UserSpecifications;
+
 import java.util.List;
 import java.util.stream.Collectors;
-@Service
-public class UserServiceImpl implements UserService  {
 
-    private final UserRepository userRepository ;
+@Service
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -19,12 +23,12 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     public void addUser(User user) {
-        userRepository.save(user)  ;
+        userRepository.save(user);
     }
 
     @Override
     public void removeUser(Long id) {
-        if(!userRepository.existsById(id)) {
+        if (!userRepository.existsById(id)) {
             throw new IllegalStateException("User not found");
         }
         userRepository.deleteById(id);
@@ -43,7 +47,7 @@ public class UserServiceImpl implements UserService  {
     @Override
     public void updateUser(Long id, User updatedUser) {
         User existingUser = getUserById(id);
-        if (existingUser != null){
+        if (existingUser != null) {
             existingUser.setId(updatedUser.getId());
             existingUser.setFirstName(updatedUser.getFirstName());
             existingUser.setLastName(updatedUser.getLastName());
@@ -55,9 +59,14 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     public List<User> searchUsers(Long id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId) {
-        return getAllUsers().stream().filter(user -> user.getId().equals(id)||user.getFirstName().equalsIgnoreCase(firstName)||
-                user.getLastName().equalsIgnoreCase(lastName)|| user.getDateOfBirth().equals(dateOfBirth)||
-                user.getRsaId().equalsIgnoreCase(rsaId)).collect(Collectors.toList());
+        Specification<User> spec = Specification
+                .where(UserSpecifications.idEquals(id))
+                .or(UserSpecifications.firstNameEquals(firstName))
+                .or(UserSpecifications.lastNameEquals(lastName))
+                .or(UserSpecifications.dateOfBirthEquals(dateOfBirth))
+                .or(UserSpecifications.rsaIdEquals(rsaId));
+
+        return userRepository.findAll(spec);
     }
 
 }

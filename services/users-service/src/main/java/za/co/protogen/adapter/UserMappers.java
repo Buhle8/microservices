@@ -2,13 +2,13 @@ package za.co.protogen.adapter;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import za.co.protogen.controller.models.UserDto;
+import com.example.usersService.models.UserDto;
 import za.co.protogen.persistance.models.User;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface Mappers {
+public interface UserMappers {
 
     @Mapping(target = "dateOfBirth", source = "dateOfBirth", dateFormat = "yyyy-MM-dd")
     User userDtoToUserEntity(UserDto userDto);
