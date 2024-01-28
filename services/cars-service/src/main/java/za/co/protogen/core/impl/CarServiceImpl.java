@@ -9,10 +9,11 @@ import za.co.protogen.specification.CarSpecifications;
 
 import java.util.Comparator;
 import java.util.List;
+
 @Service
 public class CarServiceImpl implements CarService {
 
-  private final CarRepository carRepository;
+    private final CarRepository carRepository;
 
     public CarServiceImpl(CarRepository carRepository) {
         this.carRepository = carRepository;
@@ -20,21 +21,21 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void addCar(Car car) {
-       carRepository.save(car);
-
+        carRepository.save(car);
     }
+
     @Override
     public void removeCar(String vin) {
 
-        if (!carRepository.existsById(Long.valueOf(vin))){
-           throw new IllegalStateException("car not found!!");
+        if (!carRepository.existsById(vin)) {
+            throw new IllegalStateException("car not found!!");
         }
-        carRepository.deleteById(Long.valueOf(vin));
+        carRepository.deleteById(vin);
     }
 
     @Override
     public Car getCarById(String vin) {
-        return carRepository.findById(Long.valueOf(vin)).orElse(null);
+        return carRepository.findById(vin).orElse(null);
     }
 
     @Override
@@ -59,8 +60,8 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void updateCar(String vin, Car updatedCar) {
-      Car existingCar = getCarById(vin);
-        if (existingCar != null){
+        Car existingCar = getCarById(vin);
+        if (existingCar != null) {
             existingCar.setMake(updatedCar.getMake());
             existingCar.setModel(updatedCar.getModel());
             existingCar.setYear(updatedCar.getYear());
@@ -81,6 +82,7 @@ public class CarServiceImpl implements CarService {
     public Car findCheapestCar() {
         return carRepository.findAll().stream().min(Comparator.comparingDouble(Car::getPrice)).orElse(null);
     }
+
     @Override
     public Double calculateAverageMileage() {
         double totalMileage = carRepository.findAll().stream().mapToDouble(Car::getMileage).sum();
@@ -102,7 +104,7 @@ public class CarServiceImpl implements CarService {
         return carRepository.findAll().stream().min(Comparator.comparingInt(Car::getYear)).orElse(null);
     }
 
-@Override
+    @Override
     public List<Car> searchCars(String vin, String make, String model, Integer year,
                                 String color, String engine, String transmission, String fuelType,
                                 Integer mileage, Integer price, Integer ownerId, List<String> features) {
