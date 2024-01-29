@@ -8,7 +8,7 @@ import za.co.protogen.persistance.models.User;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface Mappers {
+public interface UserMappers {
 
     @Mapping(target = "dateOfBirth", source = "dateOfBirth", dateFormat = "yyyy-MM-dd")
     User userDtoToUserEntity(UserDto userDto);
