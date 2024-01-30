@@ -12,7 +12,7 @@ import za.co.protogen.persistance.models.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-29T23:50:53+0000",
+    date = "2024-01-29T18:57:35+0000",
     comments = "version: 1.6.0.Beta1, compiler: javac, environment: Java 21.0.1 (Oracle Corporation)"
 )
 @Component
