@@ -3,6 +3,7 @@ package za.co.protogen.adapter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import com.example.usersService.models.UserDto;
+import za.co.protogen.controller.models.UserDto;
 import za.co.protogen.persistance.models.User;
 
 import java.util.List;

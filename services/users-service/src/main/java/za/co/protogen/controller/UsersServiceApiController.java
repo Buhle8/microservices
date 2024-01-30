@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.threeten.bp.LocalDate;
 import za.co.protogen.adapter.UserMappers;
+
 import com.example.usersService.api.UsersApi;
 import com.example.usersService.models.UserDto;
+
+import za.co.protogen.controller.api.UsersApi;
+import za.co.protogen.controller.models.UserDto;
 import za.co.protogen.core.UserService;
 
 import java.math.BigDecimal;
@@ -23,6 +27,7 @@ public class UsersServiceApiController implements UsersApi {
     private final UserMappers userMappers;
     private static final Logger logger = LoggerFactory.getLogger(UsersServiceApiController.class);
 
+
     public UsersServiceApiController(UserService userService, UserMappers userMappers) {
         this.userService = userService;
         this.userMappers = userMappers;
@@ -33,13 +38,20 @@ public class UsersServiceApiController implements UsersApi {
     public ResponseEntity<Void> addUser(UserDto body) {
         userService.addUser(userMappers.userDtoToUserEntity(body));
         logger.info("adding user");
+
         return ResponseEntity.status(HttpStatus.OK).build();
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<UserDto>> getAllUsers() {
         logger.info("getting all users");
+
         List<UserDto> userDtos = userMappers.userEntityToUserDto(userService.getAllUsers());
+      
+        List<UserDto>userDtos=userMappers.userEntityToUserDto(userService.getAllUsers());
+
         return ResponseEntity.ok(userDtos);
     }
 
@@ -64,6 +76,16 @@ public class UsersServiceApiController implements UsersApi {
         Long idValue = (id != null) ? id.longValue() : null;
         List<UserDto> userDtos = userMappers.userEntityToUserDto(userService
                 .searchUsers(idValue, firstName, lastName, dateOfBirth, rsaId));
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<UserDto>> searchUsers(BigDecimal id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId) {
+        logger.info("searching all users");
+        Long idValue = (id != null) ? id.longValue() : null;
+        List<UserDto>userDtos =userMappers.userEntityToUserDto(userService.searchUsers(idValue,firstName,lastName,dateOfBirth,rsaId));
+
         return ResponseEntity.ok(userDtos);
     }
 
