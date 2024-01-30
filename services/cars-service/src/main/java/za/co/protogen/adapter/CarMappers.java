@@ -2,7 +2,7 @@ package za.co.protogen.adapter;
 
 
 import org.mapstruct.Mapper;
-import za.co.protogen.controller.models.CarDto;
+import com.example.carsService.models.CarDto;
 import za.co.protogen.persistance.models.Car;
 
 import java.util.List;

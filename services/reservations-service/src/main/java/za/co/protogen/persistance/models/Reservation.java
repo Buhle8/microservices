@@ -24,7 +24,7 @@ public class Reservation {
     @Column(name = "toDate")
     private LocalDate toDate;
     @Column(name = "pickUpLocation")
-    private String pickUpLocation ;
+    private String pickUpLocation;
     @Column(name = "dropOffLocation")
     private String dropOffLocation;
 
@@ -96,10 +96,5 @@ public class Reservation {
     public void setDropOffLocation(String dropOffLocation) {
         this.dropOffLocation = dropOffLocation;
     }
-
-    public void setToDate(java.time.LocalDate of) {
-    }
-
-    public void setFromDate(java.time.LocalDate of) {
-    }
 }
+
