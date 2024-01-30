@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 @Repository
-public interface CarRepository extends JpaRepository<Car, Long>, JpaSpecificationExecutor<Car> {
+public interface CarRepository extends JpaRepository<Car, String>, JpaSpecificationExecutor<Car> {
 
     List<Car> findByColor(String color);
 

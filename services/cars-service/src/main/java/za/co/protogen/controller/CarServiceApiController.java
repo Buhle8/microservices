@@ -7,11 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import za.co.protogen.adapter.CarMappers;
-import za.co.protogen.controller.api.CarsApi;
-import za.co.protogen.controller.models.CarDto;
+import com.example.carsService.api.CarsApi;
+import com.example.carsService.models.CarDto;
 import za.co.protogen.core.CarService;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -79,13 +78,14 @@ public class CarServiceApiController implements CarsApi {
         logger.info("updating cars");
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-   @Override
+
+    @Override
     public ResponseEntity<List<CarDto>> searchCars(String vin, String make, String model, Integer year, String color,
-                                String engine, String transmission, String fuelType, Integer mileage,
-                                Integer price, Integer ownerId, List<String> feature) {
+                                                   String engine, String transmission, String fuelType, Integer mileage,
+                                                   Integer price, Integer ownerId, List<String> feature) {
         List<CarDto> carDtos = carMapper.carEntityToCarDto(carService.searchCars(vin, make, model, year, color, engine, transmission, fuelType,
-                mileage, price, ownerId ,feature));
-        return ResponseEntity.ok(carDtos) ;
+                mileage, price, ownerId, feature));
+        return ResponseEntity.ok(carDtos);
     }
 }
 
