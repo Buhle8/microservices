@@ -62,7 +62,8 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<Reservation> searchReservations(Long id, Long userId,Long carId, LocalDate
             fromDate, LocalDate toDate,  String pickUpLocation, String dropOffLocation) {
-        Specification<Reservation> spec = Specification.where(ReservationSpecifications.idEquals(id))
+        Specification<Reservation> spec = Specification
+                .where(ReservationSpecifications.idEquals(id))
                 .or(ReservationSpecifications.userIdEquals(userId))
                 .or(ReservationSpecifications.dateFrom(fromDate))
                 .or(ReservationSpecifications.dateTo(toDate))

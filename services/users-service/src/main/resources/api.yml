@@ -118,15 +118,16 @@ paths:
           description: date  of birth of a user to be searched
           required: false
           schema:
-            type: date
+            type: string
+            format: date
+            description: user date of birth
+            example: "2024-01-26"
         - name: rsaId
           in: query
           description: rsa Id of a user to be searched
           required: false
           schema:
             type: string
-            items:
-              string
       responses:
         '200':
           description: Users returned successfully
@@ -151,7 +152,10 @@ components:
         lastName:
           type: string
         dateOfBirth:
-          type: date
+          type: string
+          format: date
+          description: User Date of Birth
+          example: "2024-01-26"
         rsaId:
           type: string
 
