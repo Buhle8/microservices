@@ -113,7 +113,7 @@ paths:
           description: car Id of a reservation to be searched
           required: false
           schema:
-            type: number
+            type: string
         - name: fromDate
           in: query
           description: from date of a reservation to be searched
@@ -187,7 +187,7 @@ paths:
           description: id of a car to be returned
           required: true
           schema:
-            type: number
+            type: string
       responses:
         '200':
           description: Car returned successfully
@@ -208,7 +208,7 @@ components:
         userId:
           type: number
         carId:
-          type: number
+          type: string
         fromDate:
           type: string
           format: date
@@ -244,8 +244,6 @@ components:
     CarDto:
       type: object
       properties:
-        carId:
-          type: integer
         vin:
           type: string
         make:
@@ -257,7 +255,7 @@ components:
         color:
           type: string
         engine:
-          type: integer
+          type: string
         transmission:
           type: string
         fuelType:

@@ -18,7 +18,7 @@ public class Reservation {
     @Column(name = "userId")
     private Long userId;
     @Column(name = "carId")
-    private Long carId;
+    private String carId;
     @Column(name = "fromDate")
     private LocalDate fromDate;
     @Column(name = "toDate")
@@ -28,7 +28,7 @@ public class Reservation {
     @Column(name = "dropOffLocation")
     private String dropOffLocation;
 
-    public Reservation(Long id, Long userId, Long carId, LocalDate fromDate, LocalDate toDate, String pickUpLocation, String dropOffLocation) {
+    public Reservation(Long id, Long userId, String carId, LocalDate fromDate, LocalDate toDate, String pickUpLocation, String dropOffLocation) {
         this.id = id;
         this.userId = userId;
         this.carId = carId;
@@ -57,11 +57,11 @@ public class Reservation {
         this.userId = userId;
     }
 
-    public Long getCarId() {
+    public String getCarId() {
         return carId;
     }
 
-    public void setCarId(Long carId) {
+    public void setCarId(String carId) {
         this.carId = carId;
     }
 

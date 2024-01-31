@@ -1,6 +1,8 @@
 package za.co.protogen.core.impl;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import za.co.protogen.core.CarService;
 import za.co.protogen.persistance.models.Car;
@@ -9,6 +11,7 @@ import za.co.protogen.specification.CarSpecifications;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -33,10 +36,14 @@ public class CarServiceImpl implements CarService {
         carRepository.deleteById(vin);
     }
 
+
     @Override
     public Car getCarById(String vin) {
-        return carRepository.findById(vin).orElse(null);
+        Optional<Car> car = carRepository.findById(vin);
+        return car.orElseGet(() -> (Car) ResponseEntity.status(HttpStatus.NOT_FOUND));
     }
+
+
 
     @Override
     public List<Car> getAllCars() {
@@ -75,8 +82,8 @@ public class CarServiceImpl implements CarService {
             existingCar.setPrice(updatedCar.getPrice());
             existingCar.setOwnerId(updatedCar.getOwnerId());
         }
-
     }
+
 
     @Override
     public Car findCheapestCar() {

@@ -1,9 +1,8 @@
 package za.co.protogen.adapter;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import com.example.usersService.models.UserDto;
-import za.co.protogen.controller.models.UserDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import za.co.protogen.persistance.models.User;
 
 import java.util.List;
@@ -11,10 +10,10 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UserMappers {
 
-    @Mapping(target = "dateOfBirth", source = "dateOfBirth", dateFormat = "yyyy-MM-dd")
+    UserMappers USER = Mappers.getMapper(UserMappers.class);
     User userDtoToUserEntity(UserDto userDto);
-    @Mapping(target = "dateOfBirth", source = "dateOfBirth", dateFormat = "yyyy-MM-dd")
     List<UserDto> userEntityToUserDto(List<User> user);
-    @Mapping(target = "dateOfBirth", source = "dateOfBirth", dateFormat = "yyyy-MM-dd")
     UserDto userEntityToUserDto(User user);
 }
+
+

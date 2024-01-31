@@ -2,15 +2,14 @@ package za.co.protogen.core.impl;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.threeten.bp.LocalDate;
 import za.co.protogen.core.UserService;
 import za.co.protogen.persistance.models.User;
 import za.co.protogen.persistance.repository.UserRepository;
-
-import org.threeten.bp.LocalDate;
 import za.co.protogen.specification.UserSpecifications;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,10 +32,10 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.deleteById(id);
     }
-
     @Override
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.orElseThrow(() -> new IllegalStateException("User not found"));
     }
 
     @Override
@@ -54,7 +53,6 @@ public class UserServiceImpl implements UserService {
             existingUser.setDateOfBirth(updatedUser.getDateOfBirth());
             existingUser.setRsaId(updatedUser.getRsaId());
         }
-
     }
 
     @Override
