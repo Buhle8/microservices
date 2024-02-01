@@ -1,5 +1,7 @@
 package za.co.protogen.controller;
 
+import com.example.usersService.api.UsersApi;
+import com.example.usersService.models.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -8,12 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.threeten.bp.LocalDate;
 import za.co.protogen.adapter.UserMappers;
-
-import com.example.usersService.api.UsersApi;
-import com.example.usersService.models.UserDto;
-
-import za.co.protogen.controller.api.UsersApi;
-import za.co.protogen.controller.models.UserDto;
 import za.co.protogen.core.UserService;
 
 import java.math.BigDecimal;
@@ -24,33 +20,27 @@ import java.util.List;
 @RequestMapping
 public class UsersServiceApiController implements UsersApi {
     private final UserService userService;
-    private final UserMappers userMappers;
     private static final Logger logger = LoggerFactory.getLogger(UsersServiceApiController.class);
 
 
-    public UsersServiceApiController(UserService userService, UserMappers userMappers) {
+    public UsersServiceApiController(UserService userService) {
         this.userService = userService;
-        this.userMappers = userMappers;
     }
 
 
     @Override
     public ResponseEntity<Void> addUser(UserDto body) {
-        userService.addUser(userMappers.userDtoToUserEntity(body));
+        userService.addUser(UserMappers.USER.userDtoToUserEntity(body));
         logger.info("adding user");
 
         return ResponseEntity.status(HttpStatus.OK).build();
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<UserDto>> getAllUsers() {
         logger.info("getting all users");
 
-        List<UserDto> userDtos = userMappers.userEntityToUserDto(userService.getAllUsers());
-      
-        List<UserDto>userDtos=userMappers.userEntityToUserDto(userService.getAllUsers());
+        List<UserDto> userDtos = UserMappers.USER.userEntityToUserDto(userService.getAllUsers());
 
         return ResponseEntity.ok(userDtos);
     }
@@ -58,7 +48,7 @@ public class UsersServiceApiController implements UsersApi {
     @Override
     public ResponseEntity<UserDto> getUserById(BigDecimal id) {
         logger.info("getting user by id " + id);
-        UserDto userDto = userMappers.userEntityToUserDto(userService.getUserById(id.longValue()));
+        UserDto userDto = UserMappers.USER.userEntityToUserDto(userService.getUserById(id.longValue()));
         return ResponseEntity.ok(userDto);
     }
 
@@ -69,29 +59,19 @@ public class UsersServiceApiController implements UsersApi {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @Override
-    public ResponseEntity<List<UserDto>> searchUsers(BigDecimal id, String firstName, String lastName,
-                                                     LocalDate dateOfBirth, String rsaId) {
-        logger.info("searching all users");
-        Long idValue = (id != null) ? id.longValue() : null;
-        List<UserDto> userDtos = userMappers.userEntityToUserDto(userService
-                .searchUsers(idValue, firstName, lastName, dateOfBirth, rsaId));
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @Override
     public ResponseEntity<List<UserDto>> searchUsers(BigDecimal id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId) {
         logger.info("searching all users");
         Long idValue = (id != null) ? id.longValue() : null;
-        List<UserDto>userDtos =userMappers.userEntityToUserDto(userService.searchUsers(idValue,firstName,lastName,dateOfBirth,rsaId));
+        List<UserDto>userDtos =UserMappers.USER.userEntityToUserDto(userService.searchUsers(idValue,firstName,lastName,dateOfBirth,rsaId));
 
         return ResponseEntity.ok(userDtos);
     }
 
     @Override
     public ResponseEntity<Void> updateUser(BigDecimal id, UserDto body) {
-        userService.updateUser(id.longValue(), userMappers.userDtoToUserEntity(body));
+        userService.updateUser(id.longValue(), UserMappers.USER.userDtoToUserEntity(body));
         logger.info("updating user");
         return ResponseEntity.status(HttpStatus.OK).build();
     }

@@ -1,16 +1,17 @@
 package za.co.protogen.core.impl;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.threeten.bp.LocalDate;
 import za.co.protogen.core.ReservationService;
 import za.co.protogen.persistance.models.Reservation;
 import za.co.protogen.persistance.repository.ReservationRepository;
-
-import org.threeten.bp.LocalDate;
 import za.co.protogen.specification.ReservationSpecifications;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 
 @Service
@@ -38,7 +39,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Reservation getReservationById(Long id) {
-        return reservationRepository.findById(id).orElse(null);
+        Optional<Reservation> reservation = reservationRepository.findById(id);
+        return reservation.orElseGet(() -> (Reservation) ResponseEntity.status(HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -56,11 +58,12 @@ public class ReservationServiceImpl implements ReservationService {
             existingReservation.setToDate((updatedReservation.getToDate()));
             existingReservation.setPickUpLocation(updatedReservation.getPickUpLocation());
             existingReservation.setDropOffLocation(updatedReservation.getDropOffLocation());
-
         }
     }
+
+
     @Override
-    public List<Reservation> searchReservations(Long id, Long userId,Long carId, LocalDate
+    public List<Reservation> searchReservations(Long id, Long userId,String carId, LocalDate
             fromDate, LocalDate toDate,  String pickUpLocation, String dropOffLocation) {
         Specification<Reservation> spec = Specification
                 .where(ReservationSpecifications.idEquals(id))

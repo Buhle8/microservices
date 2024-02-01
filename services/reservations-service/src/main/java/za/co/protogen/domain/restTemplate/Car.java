@@ -3,8 +3,8 @@ package za.co.protogen.domain.restTemplate;
 import java.util.ArrayList;
 
 public class Car {
-    private String make;
 
+    private String make;
     private String model;
     private Integer year;
     private String color;

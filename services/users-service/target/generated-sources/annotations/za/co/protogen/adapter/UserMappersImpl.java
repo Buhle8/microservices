@@ -1,24 +1,20 @@
 package za.co.protogen.adapter;
 
+import com.example.usersService.models.UserDto;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
-import za.co.protogen.controller.models.UserDto;
 import za.co.protogen.persistance.models.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-29T23:50:53+0000",
+    date = "2024-01-31T22:09:38+0000",
     comments = "version: 1.6.0.Beta1, compiler: javac, environment: Java 21.0.1 (Oracle Corporation)"
 )
 @Component
 public class UserMappersImpl implements UserMappers {
-
-    private final DateTimeFormatter dateTimeFormatter_yyyy_MM_dd_0159776256 = DateTimeFormatter.ofPattern( "yyyy-MM-dd" );
 
     @Override
     public User userDtoToUserEntity(UserDto userDto) {
@@ -28,14 +24,12 @@ public class UserMappersImpl implements UserMappers {
 
         User user = new User();
 
-        if ( userDto.getDateOfBirth() != null ) {
-            user.setDateOfBirth( LocalDate.parse( userDto.getDateOfBirth(), dateTimeFormatter_yyyy_MM_dd_0159776256 ) );
-        }
         if ( userDto.getId() != null ) {
             user.setId( userDto.getId().longValue() );
         }
         user.setFirstName( userDto.getFirstName() );
         user.setLastName( userDto.getLastName() );
+        user.setDateOfBirth( userDto.getDateOfBirth() );
         user.setRsaId( userDto.getRsaId() );
 
         return user;
@@ -63,14 +57,12 @@ public class UserMappersImpl implements UserMappers {
 
         UserDto userDto = new UserDto();
 
-        if ( user.getDateOfBirth() != null ) {
-            userDto.setDateOfBirth( dateTimeFormatter_yyyy_MM_dd_0159776256.format( user.getDateOfBirth() ) );
-        }
         if ( user.getId() != null ) {
             userDto.setId( BigDecimal.valueOf( user.getId() ) );
         }
         userDto.setFirstName( user.getFirstName() );
         userDto.setLastName( user.getLastName() );
+        userDto.setDateOfBirth( user.getDateOfBirth() );
         userDto.setRsaId( user.getRsaId() );
 
         return userDto;

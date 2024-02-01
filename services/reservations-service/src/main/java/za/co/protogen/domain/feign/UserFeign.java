@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import za.co.protogen.domain.restTemplate.User;
 
-@FeignClient(name = "usersservice", url = "usersservice")
+@FeignClient(name = "usersservice")
 public interface UserFeign {
-    @GetMapping("{id}")
+    @GetMapping("/users/{id}")
     User getUserById(@PathVariable Long id);
 }
