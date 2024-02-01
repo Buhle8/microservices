@@ -4,6 +4,8 @@ import com.example.reservationsService.api.ReservationsApi;
 import com.example.reservationsService.models.CarDto;
 import com.example.reservationsService.models.ReservationDto;
 import com.example.reservationsService.models.UserDto;
+import jakarta.ws.rs.NotFoundException;
+import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class ReservationServiceApiController implements ReservationsApi {
     private static final Logger logger = LoggerFactory.getLogger(ReservationServiceApiController.class);
     private final ReservationService reservationService;
 
-    private final CarFeign  carFeign;
+    private final CarFeign carFeign;
     private final UserFeign userFeign;
 
 
@@ -41,8 +43,27 @@ public class ReservationServiceApiController implements ReservationsApi {
 
     @Override
     public ResponseEntity<Void> addReservation(ReservationDto body) {
-        reservationService.addReservation(ReservationMappers.RESERVATION.reservationDtoToReservationEntity(body));
         logger.info("adding reservations");
+        String carId = body.getCarId();
+        Long userId = body.getUserId().longValue();
+
+        if (!ObjectUtils.equals(userId, null)) {
+            logger.info("User Id: " + userId);
+            UserDto userDto = ReservationMappers.RESERVATION.userEntityToUserDto(userFeign.getUserById(userId));
+            if (userDto == null) {
+                throw new NotFoundException("User id not found");
+            }
+        }
+
+        if (carId != null && !carId.isEmpty()) {
+            logger.info("Car id: " + carId);
+            CarDto carDto = ReservationMappers.RESERVATION.carEntityToCarDto(carFeign.getCarById(carId));
+            if (carDto == null) {
+                throw new NotFoundException("Car id not found");
+            }
+        }
+
+        reservationService.addReservation(ReservationMappers.RESERVATION.reservationDtoToReservationEntity(body));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -54,22 +75,10 @@ public class ReservationServiceApiController implements ReservationsApi {
     }
 
     @Override
-    public ResponseEntity<CarDto> getCarById(String carId) {
-        CarDto carDto = ReservationMappers.RESERVATION.reservationEntityToReservationDto(carFeign.getCarById(carId));
-        return ResponseEntity.ok(carDto);
-    }
-
-    @Override
     public ResponseEntity<ReservationDto> getReservationById(BigDecimal id) {
         logger.info("getting reservation by id " + id);
-        return ResponseEntity.ok((ReservationDto) ReservationMappers.RESERVATION.reservationEntityToReservationDto(reservationService.getReservationById(id.longValue())));
-    }
-
-    @Override
-    public ResponseEntity<UserDto> getUserById(BigDecimal userId) {
-        UserDto userDto = ReservationMappers.RESERVATION.reservationEntityToReservationDto(userFeign.getUserById(userId.longValue()));
-        return ResponseEntity.ok(userDto);
-
+        ReservationDto reservationDto = ReservationMappers.RESERVATION.reservationEntityToReservationDto(reservationService.getReservationById(id.longValue()));
+        return ResponseEntity.ok(reservationDto);
     }
 
     @Override

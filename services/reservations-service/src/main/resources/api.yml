@@ -156,48 +156,6 @@ paths:
         '404':
           description: Reservation not found
 
-  /reservations/user/{userId}:
-    get:
-      summary: Return a user by id
-      operationId: getUserById
-      parameters:
-        - name: userId
-          in: path
-          description: id of a user to be returned
-          required: true
-          schema:
-            type: number
-      responses:
-        '200':
-          description: User returned successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserDto'
-        '404':
-          description: User not found
-
-  /reservations/car/{carId}:
-    get:
-      summary: Return a car by id
-      operationId: getCarById
-      parameters:
-        - name: carId
-          in: path
-          description: id of a car to be returned
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Car returned successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CarDto'
-        '404':
-          description: Car not found
-
 components:
   schemas:
     ReservationDto:
