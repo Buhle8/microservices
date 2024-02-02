@@ -22,7 +22,7 @@ public interface ReservationMappers {
 
     ReservationDto reservationEntityToReservationDto(Reservation reservation);
 
-    CarDto reservationEntityToReservationDto(Car car);
+    CarDto carEntityToCarDto(Car car);
 
-    UserDto reservationEntityToReservationDto(User user);
+    UserDto userEntityToUserDto(User user);
 }

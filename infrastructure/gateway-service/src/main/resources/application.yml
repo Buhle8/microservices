@@ -4,13 +4,42 @@ server:
 spring:
   application:
     name: gateway-service
+  config:
+    import: optional:configserver:http://localhost:9001
   cloud:
     config:
       uri: http://localhost:9001
       name: gateway-service
+      enabled: true
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id:
+            - usersservice
+          uri: lb://usersservice
+          predicates:
+            - Path=/users/**
+
+        - id:
+            - reservationsservice
+          uri: lb://reservationsservice
+          predicates:
+            - Path=/reservations/**
+
+        - id:
+            - carsservice
+          uri: lb://carsservice
+          predicates:
+            - Path=/cars/**
+
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
 
