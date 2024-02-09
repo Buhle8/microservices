@@ -16,13 +16,17 @@ public class User {
     private String lastName ;
     private LocalDate dateOfBirth;
     private String rsaId;
+    private String username;
+    private String password;
 
-    public User(Long id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId) {
+    public User(Long id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId, String username, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.rsaId = rsaId;
+        this.username = username;
+        this.password = password;
     }
 
     public User() {
@@ -67,4 +71,11 @@ public class User {
     public void setRsaId(String rsaId) {
         this.rsaId = rsaId;
     }
+
+    public String getUsername() {return username; }
+    public void setUsername(String username) {this.username = username;}
+
+    public String getPassword() {return password;}
+
+    public void setPassword(String password) {this.password = password;}
 }
