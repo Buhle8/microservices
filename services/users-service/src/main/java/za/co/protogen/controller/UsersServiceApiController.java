@@ -4,34 +4,28 @@ import com.example.usersService.api.UsersApi;
 import com.example.usersService.models.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.threeten.bp.LocalDate;
 import za.co.protogen.adapter.UserMappers;
 import za.co.protogen.core.UserService;
-import za.co.protogen.persistance.models.User;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
 @RequestMapping
 public class UsersServiceApiController implements UsersApi {
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
     private static final Logger logger = LoggerFactory.getLogger(UsersServiceApiController.class);
 
 
-    public UsersServiceApiController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UsersServiceApiController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+
     }
 
 
@@ -83,39 +77,6 @@ public class UsersServiceApiController implements UsersApi {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/register")
-    public void registerUser(@RequestBody User user) {
-        String hashedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hashedPassword);
-        userService.addUser(user);
-    }
-        @GetMapping("/login")
-        public String login() {
-            return "login";
-        }
-
-    @Autowired
-    private TokenStore tokenStore;
-
-    @PostMapping("/refreshToken")
-    public ResponseEntity<Map<String, String>> refreshToken(@RequestParam("refreshToken") String refreshToken) {
-        OAuth2AccessToken accessToken = tokenStore.readAccessToken(refreshToken);
-      if (accessToken == null || accessToken.isExpired()) {
-          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-       }
-
-        Object authentication = tokenStore.readAuthentication(refreshToken);
-
-        TokenStore yourTokenService = new TokenStore();
-        DefaultOAuth2AccessToken newAccessToken = yourTokenService.createAccessToken(authentication);
-
-        Map<String, String> response = new HashMap<>();
-        response.put("access_token", newAccessToken.getValue());
-        response.put("token_type", "bearer");
-        response.put("expires_in", String.valueOf(newAccessToken.getExpiresIn()));
-
-        return ResponseEntity.ok(response);
-    }
 }
 
 
