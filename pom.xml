@@ -16,7 +16,6 @@
         <module>infrastructure/gateway-service</module>
         <module>infrastructure/eureka-service</module>
         <module>infrastructure/authorization-service</module>
-        <module>infrastructure/resource-server</module>
     </modules>
 
 

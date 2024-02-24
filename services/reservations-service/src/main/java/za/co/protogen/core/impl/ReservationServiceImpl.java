@@ -1,11 +1,17 @@
 package za.co.protogen.core.impl;
 
 import jakarta.ws.rs.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.threeten.bp.LocalDate;
+import za.co.protogen.controller.ReservationServiceApiController;
 import za.co.protogen.core.ReservationService;
 import za.co.protogen.domain.feign.CarFeign;
 import za.co.protogen.domain.feign.UserFeign;
@@ -19,11 +25,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final CarFeign carFeign;
     private final UserFeign userFeign;
+    private static final Logger logger = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
     public ReservationServiceImpl(ReservationRepository reservationRepository, CarFeign carFeign, UserFeign userFeign) {
         this.reservationRepository = reservationRepository;
@@ -35,21 +43,31 @@ public class ReservationServiceImpl implements ReservationService {
     public void addReservation(Reservation reservation) {
         String carId = reservation.getCarId();
         Long userId = reservation.getUserId();
+        String authorizationKey = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest()
+                .getHeader("Authorization");
+        System.out.println("auth-key: " + authorizationKey);
 
         if (userId != null) {
-            User user = userFeign.getUserById(userId);
-            if (user == null) {
-                throw new NotFoundException("User id not found");
+            try {
+                User user = userFeign.getUserById(userId, authorizationKey);
+                if (user == null) {
+                    throw new NotFoundException("User id not found");
+                }
+            } catch (Exception e) {
+                logger.error("Error retrieving user by id {}. Error: {}", userId, e.getMessage());
             }
         }
 
         if (carId != null && !carId.isEmpty()) {
-            Car car = carFeign.getCarById(carId);
-            if (car == null) {
-                throw new NotFoundException("Car id not found");
+            try {
+                Car car = carFeign.getCarById(carId, authorizationKey);
+                if (car == null) {
+                    throw new NotFoundException("Car id not found");
+                }
+            } catch (Exception e) {
+                logger.error("Error retrieving car by vin{}. Error:{}", carId, e.getMessage());
             }
         }
-
         reservationRepository.save(reservation);
     }
 

@@ -4,18 +4,38 @@ package za.co.protogen.domain.restTemplate;
 import org.threeten.bp.LocalDate;
 
 public class User {
-    private Long id ;
-    private String firstName ;
-    private String lastName ;
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String password;
     private LocalDate dateOfBirth;
     private String rsaId;
 
-    public User(Long id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId) {
+    public User(Long id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId, String username, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
+        this.password = password;
         this.dateOfBirth = dateOfBirth;
         this.rsaId = rsaId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
