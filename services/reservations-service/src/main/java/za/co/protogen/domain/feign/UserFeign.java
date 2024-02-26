@@ -8,7 +8,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import za.co.protogen.domain.restTemplate.User;
 
-@FeignClient(name = "usersservice")
+@FeignClient(name = "user-service")
 public interface UserFeign {
     @GetMapping("/users/{id}")
     User getUserById(@PathVariable Long id, @RequestHeader("Authorization") String authorization);
