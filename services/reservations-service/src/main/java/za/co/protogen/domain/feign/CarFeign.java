@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import za.co.protogen.domain.restTemplate.Car;
 
-@FeignClient(name = "carsservice")
+@FeignClient(name = "car-service")
 public interface CarFeign {
     @GetMapping("/cars/vin/{vin}")
     Car getCarById(@PathVariable String vin,@RequestHeader("Authorization") String authorization);

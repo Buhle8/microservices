@@ -18,25 +18,21 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
-        - id: usersservice
-          uri: lb://usersservice
+        - id: user-service
+          uri: lb://user-service
           predicates:
             - Path=/users/**
 
-        - id: reservationsservice
-          uri: lb://reservationsservice
+        - id: reservation-service
+          uri: lb://reservation-service
           predicates:
             - Path=/reservations/**
 
-        - id: carsservice
-          uri: lb://carsservice
+        - id: car-service
+          uri: lb://car-service
           predicates:
             - Path=/cars/**
 
-        - id: resourceserver
-          uri: lb://resourceserver
-          predicates:
-            - Path=/hello
 
 
 eureka:
