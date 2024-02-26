@@ -31,6 +31,37 @@ paths:
                 items:
                   $ref: '#/components/schemas/UserDto'
 
+    /login:
+      post:
+        summary: Logs a user into the system
+        operationId: loadUserByUsername
+        parameters:
+          - name: username
+            in: query
+            required: true
+            schema:
+              type: string
+          - name: password
+            in: query
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: User successfully logged in
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    token:
+                      type: string
+                      description: A JWT token for authentication
+          '401':
+            description: Unauthorized - Invalid credentials
+          '500':
+            description: Internal Server Error - Unable to process request
+
   /users/{id}:
     get:
       summary: Return a user by id
@@ -150,6 +181,10 @@ components:
         firstName:
           type: string
         lastName:
+          type: string
+        username:
+          type: string
+        password:
           type: string
         dateOfBirth:
           type: string

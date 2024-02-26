@@ -25,6 +25,7 @@ public class UsersServiceApiController implements UsersApi {
 
     public UsersServiceApiController(UserService userService) {
         this.userService = userService;
+
     }
 
 
@@ -64,7 +65,7 @@ public class UsersServiceApiController implements UsersApi {
     public ResponseEntity<List<UserDto>> searchUsers(BigDecimal id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId) {
         logger.info("searching all users");
         Long idValue = (id != null) ? id.longValue() : null;
-        List<UserDto>userDtos =UserMappers.USER.userEntityToUserDto(userService.searchUsers(idValue,firstName,lastName,dateOfBirth,rsaId));
+        List<UserDto> userDtos = UserMappers.USER.userEntityToUserDto(userService.searchUsers(idValue, firstName, lastName, dateOfBirth, rsaId));
 
         return ResponseEntity.ok(userDtos);
     }
@@ -75,5 +76,8 @@ public class UsersServiceApiController implements UsersApi {
         logger.info("updating user");
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
 }
+
+
 

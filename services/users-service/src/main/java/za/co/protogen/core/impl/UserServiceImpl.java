@@ -1,6 +1,8 @@
 package za.co.protogen.core.impl;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Service;
 import org.threeten.bp.LocalDate;
 import za.co.protogen.core.UserService;
@@ -16,13 +18,21 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public void addUser(User user) {
+        String hashedPassword = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(user.getPassword());
+        user.setPassword(hashedPassword);
         userRepository.save(user);
+    }
+    @Override
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
     @Override

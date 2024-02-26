@@ -1,5 +1,6 @@
 package za.co.protogen.persistance.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -7,22 +8,33 @@ import jakarta.persistence.Table;
 import org.threeten.bp.LocalDate;
 
 @Entity
-@Table
+@Table(name= "users")
 public class User {
 
     @Id
+    @Column(name="id")
     private Long id ;
+    @Column(name="firstName")
     private String firstName ;
+    @Column(name="lastName")
     private String lastName ;
+    @Column(name="dateOfBirth")
     private LocalDate dateOfBirth;
+    @Column(name="rsaId")
     private String rsaId;
+    @Column(name="username")
+    private String username;
+    @Column(name="password")
+    private String password;
 
-    public User(Long id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId) {
+    public User(Long id, String firstName, String lastName, LocalDate dateOfBirth, String rsaId, String username, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.rsaId = rsaId;
+        this.username = username;
+        this.password = password;
     }
 
     public User() {
@@ -67,4 +79,11 @@ public class User {
     public void setRsaId(String rsaId) {
         this.rsaId = rsaId;
     }
+
+    public String getUsername() {return username; }
+    public void setUsername(String username) {this.username = username;}
+
+    public String getPassword() {return password;}
+
+    public void setPassword(String password) {this.password = password;}
 }

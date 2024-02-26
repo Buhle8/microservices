@@ -3,6 +3,7 @@ package za.co.protogen.core.impl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import za.co.protogen.core.CarService;
 import za.co.protogen.persistance.models.Car;
@@ -46,6 +47,7 @@ public class CarServiceImpl implements CarService {
 
 
     @Override
+    @PreAuthorize("hasAuthority('SCOPE_user_read')")
     public List<Car> getAllCars() {
         return carRepository.findAll();
     }
