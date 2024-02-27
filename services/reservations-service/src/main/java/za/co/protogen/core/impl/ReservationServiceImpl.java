@@ -45,6 +45,7 @@ public class ReservationServiceImpl implements ReservationService {
         Long userId = reservation.getUserId();
         String authorizationKey = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest()
                 .getHeader("Authorization");
+        System.out.println("auth-key: " + authorizationKey);
 
         if (userId != null) {
             try {
